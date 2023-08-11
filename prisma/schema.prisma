@@ -20,11 +20,6 @@ model User {
   @@map("users")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 // 1-1 relation
 model Profile {
   id  Int    @id @default(autoincrement()) // PK
@@ -36,14 +31,13 @@ model Profile {
 
 // 1-n relation
 model Post {
-  id        Int      @id @default(autoincrement()) // PK
-  authorId  Int // FK
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  pulished  Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-
+  id         Int        @id @default(autoincrement()) // PK
+  title      String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  published  Boolean    @default(false)
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int // FK
   categories Category[]
 }
 
@@ -52,4 +46,9 @@ model Category {
   id    Int    @id @default(autoincrement())
   name  String
   posts Post[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
