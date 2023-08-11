@@ -8,44 +8,41 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement()) // PK
+  id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String   @map("firstName")
   role    Role?    @default(USER)
-  profile Profile?
   posts   Post[]
+  profile Profile?
 
   @@unique([name, role])
   @@index([id, email])
   @@map("users")
 }
 
-// 1-1 relation
 model Profile {
-  id  Int    @id @default(autoincrement()) // PK
-  bio String
-
-  userId Int  @unique // FK
-  user   User @relation(fields: [userId], references: [id])
+  id     Int    @id @default(autoincrement())
+  bio    String
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
 }
 
-// 1-n relation
 model Post {
-  id         Int        @id @default(autoincrement()) // PK
+  id         Int        @id @default(autoincrement())
   title      String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   published  Boolean    @default(false)
+  authorId   Int
+  likeNum    Int        @default(0)
   author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int // FK
-  categories Category[]
+  categories Category[] @relation("CategoryToPost")
 }
 
-// n-m relation
 model Category {
   id    Int    @id @default(autoincrement())
   name  String
-  posts Post[]
+  posts Post[] @relation("CategoryToPost")
 }
 
 enum Role {
