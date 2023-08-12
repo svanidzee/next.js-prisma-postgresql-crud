@@ -1,7 +1,9 @@
 import prisma from '@/lib/prisma';
 
+// http://localhost:3000/api/post/aggregation
 export async function GET() {
   const aggregations = await prisma.post.aggregate({
+    // aggregation functions
     _sum: {
       likeNum: true,
     },
@@ -21,3 +23,8 @@ export async function GET() {
 
   return new Response(JSON.stringify(aggregations));
 }
+
+// npx prisma db pull
+// npx prisma db seed
+// npx prisma migrate dev --name iii
+// npx prisma studio

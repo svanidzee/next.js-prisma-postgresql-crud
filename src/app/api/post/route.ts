@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma';
 
+// http://localhost:3000/api/post
 export async function GET() {
   const posts = await prisma.post.findMany({
     // filtering

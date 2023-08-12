@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma';
 
+// http://localhost:3000/api/user
 export async function GET() {
   // relation filters: every, some, none
   const users = await prisma.user.findMany({
