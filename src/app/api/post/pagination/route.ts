@@ -13,5 +13,16 @@ export async function GET(req: Request) {
     take: pgsize,
   });
 
+  // cursor pagination
+  //   const { searchParams } = new URL(req.url);
+
+  //   const pgnum = +(searchParams.get('pgnum') ?? 0);
+  //   const pgsize = +(searchParams.get('pgsize') ?? 5);
+
+  //   const posts = await prisma.post.findMany({
+  //     cursor: { id: cursor },
+  //     take: pgsize,
+  //   });
+
   return new Response(JSON.stringify(posts));
 }
