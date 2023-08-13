@@ -28,14 +28,16 @@ model Profile {
 }
 
 model Post {
-  id         Int        @id @default(autoincrement())
-  title      String
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  published  Boolean    @default(false)
-  authorId   Int
-  likeNum    Int        @default(0)
-  author     User       @relation(fields: [authorId], references: [id])
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  authorId  Int
+  likeNum   Int      @default(0)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  // onDelete: Cascade - delete the post of user when user itself is being deleted
+
   categories Category[] @relation("CategoryToPost")
 }
 

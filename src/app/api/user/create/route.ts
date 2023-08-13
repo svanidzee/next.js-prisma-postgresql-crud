@@ -1,7 +1,22 @@
 import prisma from '@/lib/prisma';
 
-// http://localhost:3000/api/user/create
-export async function POST() {
+interface Body {
+  name: string;
+  email: string;
+}
+
+// data from body
+// export async function POST(req: Request) {
+//   const body: Body = await req.json();
+//   const user = await prisma.user.create({
+//     data: body,
+//   });
+
+//   return new Response(JSON.stringify(user));
+// }
+
+export async function POST(req: Request) {
+  // create single user
   const user = await prisma.user.create({
     data: {
       email: 'User4@gmail.com',
@@ -32,5 +47,17 @@ export async function POST() {
       },
     },
   });
+
+  // create multiple users
+
+  const users = await prisma.user.createMany({
+    data: [
+      { name: 'User5', email: 'User5@gmail.com' },
+      { name: 'User6', email: 'User6@gmail.com' },
+      { name: 'User6', email: 'User6@gmail.com' },
+    ],
+    skipDuplicates: true, // skips existed user
+  });
+
   return new Response(JSON.stringify(user));
 }
