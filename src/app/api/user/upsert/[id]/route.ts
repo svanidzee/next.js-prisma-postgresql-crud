@@ -1,5 +1,4 @@
 import prisma from '@/lib/prisma';
-import { log } from 'console';
 
 interface Body {
   name: string;
