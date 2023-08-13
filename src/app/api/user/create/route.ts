@@ -15,6 +15,7 @@ interface Body {
 //   return new Response(JSON.stringify(user));
 // }
 
+// http://localhost:3000/api/user/create
 export async function POST(req: Request) {
   // create single user
   const user = await prisma.user.create({
